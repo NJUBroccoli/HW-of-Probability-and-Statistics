@@ -1,0 +1,120 @@
+\documentclass[twocolumn]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage{CJKutf8}
+\usepackage{CJK}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{newfloat}
+\usepackage{setspace}
+\usepackage{tikz}
+\usepackage{enumerate}
+\usepackage{listings}
+\usepackage{fancyhdr}
+\allowdisplaybreaks[4]
+\usetikzlibrary{arrows,graphs}
+\usetikzlibrary{graphs}
+\usetikzlibrary{graphs.standard}
+\pagestyle{fancy}
+\fancyhead[L]{Probability and Mathematical Statistics}
+\begin{document}
+	\begin{CJK}{UTF8}{gbsn}		
+			\title{概率论与数理统计第3次作业}
+			\author{161220049\quad 黄奕诚}
+			\maketitle
+			
+			\section*{教材习题二(1)}
+				设$P(X=x_i)=p_i$表示``盒子中球的最多个数为$x_i$的概率为$p_i$.$x_i$的可能取值为1,2,3.\\
+				于是\begin{align*}
+					& P(X=1) = \frac{A_4^3}{64}=\frac{3}{8} \\
+					& P(X=3) = \frac{4}{64}=\frac{1}{16} \\
+					& P(X=2) = 1-P(X=1)-P(X=2)=\frac{9}{16}
+				\end{align*}
+				所以$X$的分布律为\\ \\
+				\begin{tabular}{c|ccc}
+					$X$ & 1 & 2 & 3 \\
+					\hline
+					$P$ & 3/8 & 9/16 & 1/16
+				\end{tabular}
+			\section*{教材习题二(3)}
+				\begin{enumerate}[(1)]
+					\item 若$p_k$为概率分布律，则有\[p_1+p_2+p_3 = 1\]即\[\frac{2}{3}C+\frac{4}{9}C+\frac{8}{27}C=1\]得到\[C=\frac{27} {38}\]
+					\item 若$p_k$为概率分布律，则有\[\sum_{k=1}^{\infty}C\frac{\lambda^k}{k!}=1\]即\[(e^k-1)C=1\quad C=\frac{1}{e^k-1}\]
+				\end{enumerate}
+			\section*{教材习题二(19)}
+				\begin{enumerate}[(1)]
+					\item 当$X$取遍$\{-2,-1/2,0,1/2,4\}$时,$Y=2X$的取值为$\{-4,-1,0,1,8\}$.由于是一一对应关系，所以$Y$各变量对应的概率与原像$X$对应的概率相同.故分布律为\\\\
+					\begin{tabular}{c|ccccc}
+						$Y$ & -4 & -1 & 0 & 1 & 8 \\
+						\hline
+						$P$ & 1/8 & 1/4 & 1/8 & 1/6 & 1/3 
+					\end{tabular}
+					\item 当$X$取遍$\{-2,-1/2,0,1/2,4\}$时,$Y=X^2$的取值为$\{4,1/4,0,16\}$.此时\begin{align*}
+						& P(Y=4) = P(X=-2) = \frac{1}{8} \\
+						& P(Y=1/4) = P(X=-1/2) + P(X=1/2) = \frac{5}{12} \\
+						& P(Y=0) = P(X=0) = \frac{1}{8} \\
+						& P(Y=16) = P(X=4) = \frac{1}{3}
+					\end{align*}
+					故分布律为\\\\
+					\begin{tabular}{c|cccc}
+						$Y$ & 0 & 1/4 & 4 & 16 \\
+						\hline
+						$P$ & 1/8 & 5/12 & 1/8 & 1/3 
+					\end{tabular}
+					\item 当$X$取遍$\{-2,-1/2,0,1/2,4\}$时,$Y=\sin(\frac{\pi}{2}X)$的取值为$\{0,-\sqrt{2}/2,\sqrt{2}/2\}$.此时\begin{align*}
+					& P(Y=0) = P(X=-2) + P(X=0) + P(X=4) = \frac{7}{12} \\
+					& P(Y=-\sqrt{2}/2) = P(X=-1/2) = \frac{1}{4} \\
+					& P(Y=\sqrt{2}/2) = P(X=1/2) = \frac{1}{6} \\
+					\end{align*}
+					故分布律为\\\\
+					\begin{tabular}{c|ccc}
+						$Y$ & 0 & $-\sqrt{2}/2$ & $\sqrt{2}/2$ \\
+						\hline
+						$P$ & 7/12 & 1/4 & 1/6 
+					\end{tabular}
+				\end{enumerate}
+			\section*{教材习题三(3)}
+				易知\begin{align*}
+					& P(X+Y=2)= \\&  P(X=1,Y=1)+P(X=2,Y=0)+\\& P(X=3,Y=-1)
+				\end{align*}又因为随机变量$X$和$Y$相互独立，所以\begin{align*}
+					& P(X+Y=2) = P(X=1)P(Y=1)+ \\ & P(X=2)P(Y=0)+P(X=3)P(Y=-1) \\
+					         & = \frac{1}{4}\cdot\frac{1}{4}+\frac{1}{8}\cdot\frac{1}{2}+\frac{1}{8}\cdot\frac{1}{4}=\frac{5}{32}
+				\end{align*}
+			\section*{2.蓄水池抽样}
+				\begin{itemize}
+					\item \begin{proof}
+						设最终采样的数据为第$k$个数据的概率为$p_k$，数据总量为$n$.假若最终采样的数据为第$k$个数据，则其不会被后面的$n-k$个数据所替代，因此有\[p_k=\frac{1}{k}\prod_{i=k+1}^{n}(1-\frac{1}{i})\]也即\[p_k=\frac{1}{k}\cdot\frac{k}{k+1}\cdot\frac{k+1}{k+2}\cdot\dots\cdot\frac{n-1}{n}\]因此对任意的$k$都有\[p_k=\frac{1}{n}\]所以采样的数据等可能地为所有已经流经该系统地数据中的一个.
+					\end{proof}
+					\item 若替代的概率为1/2，则可以修正第$k(k\ge2)$个数据被采样的概率为\[p_k=\frac{1}{2}\sum_{i=k+1}^{n}\frac{1}{2}=(\frac{1}{2})^{n-k+1}\]所以当有$n$个数据流过时，第1个数据留在内存的概率为$(0.5)^{n-1}$(因为第1个数据必选).第$k(k\ge2)$个数据留在内存的概率为$(0.5)^{n-k+1}$，由此便可得到分布律.
+				\end{itemize}
+			\section*{3}
+				设\[E(X)=\sum_{i=1}^{+\infty}i\cdot P(X=i)=\frac{6}{\pi^2}\sum_{i=1}^{+\infty}\frac{1}{i}\]下面证明调和级数发散:\begin{proof}
+					设$S_n = \sum_{i=1}^{\infty}\frac{1}{i}$，则\[\lim\limits_{n\to+\infty}(S_{2n}+S_n)=0\]但因为\[S_{2n}-S_n=\frac{1}{n+1}+\frac{1}{n+2}+\cdots+\frac{1}{2n}>\frac{n}{2n}>\frac{1}{2}\]与其矛盾.因此调和级数发散.
+				\end{proof}
+				故该随机变量不存在期望值.
+			\section*{4}
+				设人的个数为$n$，经过$n$轮牵手后所形成的环的期望为$E(n)$.\\
+				当$n=1$时，只有一个人，左手牵右手，故$E(1)=1$.\\
+				当$n=2$时，有1/3概率两人都牵自己的手，有2/3概率两人互相牵了手，故\[E(2)=\frac{1}{3}\cdot2+\frac{2}{3}\cdot1=\frac{4}{3}\]\\
+				当$n=3$时，有1/5概率全牵自己的手，有4/5概率存在互相牵手，此时两人或三人可以视为同一个人(就当已经互相牵好的手不存在)，便回到了$n=2$的情形：\[E(3)=\frac{1}{5}\cdot(1+E(2))+\frac{4}{5}\cdot E(2)\].\\
+				于是可知\[E(n)=\frac{1}{2n-1}(1+E(n-1))+\frac{2n-2}{2n-1}E(n-1)\]即\[E(n)=\frac{1}{2n-1}+E(n-1)\]最后可得到\[E(n)=\sum_{i=1}^{n}\frac{1}{2i-1}\]
+			\section*{5.Jensen不等式}
+				\begin{proof}
+					设$X$可取值为$\{x_1,x_2,\cdots,x_m\}$.且$P(X=x_i)=p_i$.则有\begin{align*}
+						  & E[f(X)] \\
+						= & p_1f(x_1)+p_2f(x_2)+\cdots+p_mf(x_m) \\
+						= & (p_1+p_2)(\frac{p_1}{p_1+p_2}f(x_1)+\frac{p_2}{p_1+p_2}f(x_2))+\cdots+p_mf(x_m) \\
+						\ge & (p_1+p_2)f(\frac{p_1}{p_1+p_2}x_1+\frac{p_2}{p_1+p_2}x_2)+\cdots+p_mf(x_m) \\
+						\ge & \cdots \\
+						\ge & (\sum_{i=1}^{m}p_i)f(\frac{1}{\sum_{i=1}^{m}p_i}E[X])
+					\end{align*}
+					即有\[\frac{1}{\sum_{i=1}^{m}p_i}E[f(X)]\ge f(\frac{1}{\sum_{i=1}^{m}p_i}E[X])\]
+					即\[E[\frac{1}{\sum_{i=1}^{m}p_i}f(X)]\ge f(\frac{1}{\sum_{i=1}^{m}p_i}E[X])\]
+					又因为\[\sum_{i=1}^{m}p_i=1\]因此\[E[f(X)]\ge f(E[X])\]
+					
+				\end{proof}
+	\end{CJK}
+\end{document}

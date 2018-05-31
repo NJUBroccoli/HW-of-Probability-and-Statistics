@@ -1,0 +1,127 @@
+\documentclass[twocolumn]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage{CJKutf8}
+\usepackage{CJK}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{newfloat}
+\usepackage{setspace}
+\usepackage{tikz}
+\usepackage{enumerate}
+\usepackage{listings}
+\usepackage{fancyhdr}
+\allowdisplaybreaks[4]
+\usetikzlibrary{arrows,graphs}
+\usetikzlibrary{graphs}
+\usetikzlibrary{graphs.standard}
+\pagestyle{fancy}
+\fancyhead[L]{Probability and Mathematical Statistics}
+\begin{document}
+	\begin{CJK}{UTF8}{gbsn}		
+			\title{概率论与数理统计第2次作业}
+			\author{161220049\quad 黄奕诚}
+			\maketitle
+			
+			\section*{1.教材习题一}
+			\subsection*{(4)}
+				设事件$A$为``点$A(m,n)$落入圆$x^2+y^2=19$''.样本空间共有36个样本点，而使事件$A$发生的样本点为$\{(1,1),(1,2),(1,3),(1,4),(2,1),(2,2),(2,3),(3,1),\\(3,2),(3,3),(4,1)\}$，共有11个.因此根据古典概型，$P(A)=\frac{11}{36}$.
+			\subsection*{(12)}
+				设事件$A$为``方程$x^2+px+q=0$有实根''.则事件$A$发生当且仅当$p^2-4q\ge0$，也即$q\le\frac{1}{4}p^2$.对于这个几何概型，$\Omega$对应区域为$\{(p,q)||p|\le1,|q|\le1\}$，而$A$对应区域为$\{(p,q)||p|\le1,|q|\le1,q\le\frac{1}{4}p^2\}$.可求出$A$对应区域的面积为\[m(A)=2+2\cdot\int_{0}^{1}\frac{1}{4}p^2dp=\frac{13}{6}\].因此\[P(A) = \frac{13}{6}\cdot\frac{1}{4}=\frac{13}{24}\].
+			\subsection*{(13)}
+				设事件$A$为``打成的三折能够构成三角形''.设$x,y,z$分别为打成的三折的长度，则有
+				\begin{center}
+				\begin{align*}
+					x+y+z = 2a
+				\end{align*}
+				\end{center}
+				当$A$发生时，有$x+y>z$且$x+z>y$且$y+z>x$.此时相当于:
+				\begin{center}
+				\begin{align*}
+					x+y>a\\
+					y<a\\
+					x<a
+				\end{align*}
+				\end{center}
+				由此根据几何概型可以计算出\[P(A)=\frac{1}{2}\cdot\frac{1}{a^2}\frac{1}{2a^2}=\frac{1}{4}\].
+			\subsection*{(15)}
+				由于\begin{center}
+					\begin{align*}
+						P(AB)=P(A|B)\cdot P(B)\\
+						P(AB)=P(B|A)\cdot P(A)
+					\end{align*}
+				\end{center}
+				可求出$P(B)=\frac{1}{6},P(AB)=\frac{1}{12}$.由此可知\begin{displaymath}
+					P(A\cup B)=P(A)+P(B)-P(AB)=\frac{1}{3}
+				\end{displaymath}
+				因此\begin{displaymath}
+					P(\overline{A}\overline{B})=1-P(A\cup B)=\frac{2}{3}
+				\end{displaymath}
+			\subsection*{(16)}
+				设事件$A$为``取出的2件中至少有一件次品''.事件$B$为``取出的2件都是次品''.则有\[P(A)=1-\frac{C_6^2}{C_{10}^2}=\frac{2}{3}\]\[P(B)=\frac{C_4^2}{C_{10}^2}=\frac{2}{15}\]因此题中要求的概率即为\[P(B|A)=\frac{P(AB)}{P(A)}=\frac{2}{15}\cdot\frac{3}{2}=\frac{1}{5}\].
+			\subsection*{(20)}
+				\begin{enumerate}[(1)]
+					\item 设事件$A$为``任取一盒，可以出厂''.当$A$发生时，4个抽检的元件必须都没有次品.于是\[P(A)=0.8\times1+0.1\times\frac{C_{19}^4}{C_{20}^4}+0.1\times\frac{C_{18}^4}{C_{20}^4}\approx0.943\]
+					\item 设事件$A$为``一盒元件可以出厂''.事件$B$为``一盒元件无次品''.则\[P(A)\approx0.943,P(B)=0.8,P(AB)=0.8\]所以\[P(B|A)=\frac{P(AB)}{P(A)}=\frac{0.8}{0.943}=0.848\]
+					
+				\end{enumerate}
+			\section*{2}
+				C++代码如下：
+				\begin{verbatim}
+				#include <iostream>
+				#include <cstdio>
+				#include <cmath>
+				#include <cstdlib>
+				#include <ctime>
+				#include <cstring>
+				
+				using namespace std;
+				
+				double getRandData(int min, int max)
+				{
+				    double m1 = (double)(rand() % 101) / 101;                     
+				    min++;
+				    double m2 = (double)((rand() % 
+				    (max - min + 1)) + min);    
+				    m2 = m2 - 1;
+				    return m1 + m2;                                                            
+				}
+				
+				int main()
+				{
+				    double x, y;
+				    srand(time(0));
+				    int trial = 100000000;
+				    int in = 0;
+				    for (int i = 0; i < trial; i++) {
+				        x = getRandData(-2, 2);
+				        y = getRandData(-2, 2);
+				    if (pow(x, 2) + pow(y - pow(x, 2.0 / 3)
+				        , 2) < 1.0) in++;
+				    }
+				    cout << (double)in/(double)trial*16.0<<endl;
+				    system("pause");
+				    return 0;
+				}
+				\end{verbatim}
+				三次运行结果为1.58068、1.58109、1.58055，取其平均值为1.58077.故图形面积约为1.58
+			\section*{3}
+				\begin{proof}
+					可以用数学归纳法证明.
+					\begin{itemize}
+						\item 当盒子中存在2个球时，白球数目必为1;当盒子中存在3个球时($n=3$)，白球数目为1和2的概率均为$\frac{1}{2}$.
+						\item 假设当$n=k,k\in N^*,k\ge2$时结论成立，也即当盒子中存在$k$个球时，盒子里白球的数目等可能地为1到$k-1$的某个数.则设此时白球个数为$t$，有\[P_k(t=1)=P_k(t=2)=\cdots=P_k(t=k-1)=\frac{1}{k-1}\]不妨简写为\[P_k(1)=P_k(2)=\cdots=P_k(k-1)=\frac{1}{k-1}\] 当共有$k+1$个球时，记此时白球个数为$t$.有\[P_{k+1}(t)=P_k(t-1)\cdot\frac{t-1}{k}+P_k(t)\cdot\frac{k-t}{k}=\frac{1}{k}\]因此此时盒子里白球的数目等可能地为1到$k$的某个数.
+						\item 综上所述，当盒子中存在$n$个球时，白球个数等可能地分布在1到$n-1$.
+						
+					\end{itemize}
+				\end{proof}
+			\section*{4}
+				点数和是6的倍数的概率总为$\frac{1}{6}$.
+				\begin{proof}
+					设抛掷一枚均匀骰子$k$次，设其点数和为6的倍数的概率为$P_k(A)$，点数和不为6的倍数的概率为$P_k(\overline{A})$.则设抛掷$k+1$次时，点数和为$t$，有\[P_{k+1}(t)=\frac{1}{6}P_{k}(t-1)+\frac{1}{6}P_{k}(t-2)+\cdots+\frac{1}{6}P_{k}(t-6)\]也即\[P_{k+1}(t)=\frac{1}{6}(P_k(t-1)+P_k(t-2)+\cdots+P_k(t-6))\]所以抛掷第$k+1$次时，无论前$k$次抛掷出的点数和是否是6的倍数，其此时的点数和是6的倍数的概率都是在先前$k$次抛掷条件下的$\frac{1}{6}$.也即\[P_{k+1}(A)=\frac{1}{6}P(A)+\frac{1}{6}P(\overline{A})=\frac{1}{6}\]
+				\end{proof}
+	\end{CJK}
+\end{document}

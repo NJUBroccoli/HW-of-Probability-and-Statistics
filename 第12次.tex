@@ -1,0 +1,122 @@
+\documentclass[twocolumn]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage{CJKutf8}
+\usepackage{CJK}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{newfloat}
+\usepackage{setspace}
+\usepackage{tikz}
+\usepackage{enumerate}
+\usepackage{listings}
+\usepackage{fancyhdr}
+\allowdisplaybreaks[4]
+\usetikzlibrary{arrows,graphs}
+\usetikzlibrary{graphs}
+\usetikzlibrary{graphs.standard}
+\pagestyle{fancy}
+\fancyhead[L]{Probability and Mathematical Statistics}
+\begin{document}
+	\begin{CJK}{UTF8}{gbsn}		
+			\title{概率论与数理统计第12次作业}
+			\author{161220049\quad 黄奕诚}
+			\maketitle
+			
+			\section*{习题七}
+			\subsection*{2}
+				先求矩估计：\begin{align*}
+					\mu_1 & = EX\\
+					& = \int_{0}^{1}p(x;a)xdx \\
+					& = \int_{0}^{1}(\alpha+1)x^{\alpha+1} dx\\
+					& = \frac{\alpha+1}{\alpha+2}x^{\alpha+2}|0^1 \\
+					& = \frac{\alpha+1}{\alpha+2}
+				\end{align*}
+				又因为\[A_1=\frac{1}{n}\sum_{i=1}^{n}X_i=\overline{X}\]令$EX=X$，则有\[\frac{\hat{\alpha}+1}{\hat{\alpha}+2}=\overline{X}\]即矩估计值为\[\hat{\alpha}=\frac{1-2\overline{X}}{\overline{X}-1}\]另一方面，似然函数为\begin{align*}
+					L(\alpha) & = \prod_{i=1}^{n}(\alpha+1)x_i^{\alpha}\\
+					& = (\alpha+1)^n(\prod_{i=1}^{n}x_i)^\alpha
+				\end{align*}
+				\begin{align*}
+					\ln L(\alpha) & = n\ln(\alpha+1)+\alpha\sum_{i=1}^{n}\ln x_i\\
+				\end{align*}
+				令$\frac{d\ln L(\alpha)}{d\alpha} = 0$，则有\[\frac{n}{\alpha+1}+\sum_{i=1}^{n}\ln x_i=0\]即可求得$\alpha$的极大似然估计值为\[\hat{\alpha}=\frac{n}{-\sum_{i=1}^{n}\ln x_i}-1\]
+			\subsection*{3}
+				先求矩估计：\begin{align*}
+					\mu_1 & = EX\\
+					& = \int_{0}^{+\infty}(2\pi\sigma^2)^{-\frac{1}{2}}\exp\{-\frac{1}{2\sigma^2}(\ln x-\mu)^2\}dx\\
+					& = (2\pi\sigma^2)^{-\frac{1}{2}}\int_{0}^{+\infty}\exp\{-\frac{1}{2\sigma^2}(\ln x-\mu)^2\}dx
+				\end{align*}
+				令$\frac{\ln x-\mu}{\sqrt{2}\sigma}=t$，则有\begin{align*}
+					EX & = \int_{-\infty}^{+\infty}\frac{1}{\sqrt{2\pi}\sigma}e^{-t^2}\cdot\sqrt{2}\sigma e^{\sqrt{2}\sigma t+\mu}dt\\
+					& = \frac{e^{\mu+\frac{\sigma^2}{2}}}{\sqrt{\pi}}\int_{-\infty}^{+\infty}e^{-(t-\frac{\sqrt{2}}{2}\sigma)^2}dt
+				\end{align*}
+				令$m = t-\frac{\sqrt{2}}{2}\sigma$，则有\begin{align*}
+					EX & = \frac{e^{\mu+\frac{\sigma^2}{2}}}{\sqrt{\pi}}\int_{-\infty}^{+\infty}e^{-m^2}dm\\
+					& = e^{\mu+\frac{\sigma^2}{2}}
+				\end{align*}
+				类似地通过积分可以求得\[\mu_2=E(X^2)=e^{2\sigma^2+2\mu}\]所以可得方差\[D(X)=(e^{\sigma^2}-1)e^{2\mu+\sigma^2}\]又因为\[A_1=\overline{X}\quad A_2=\frac{1}{n}\sum_{i=1}^{n}X_i^2\]令\[\mu_1=A_1\quad \mu_2=A_2\]可以解得矩估计\[\hat{\mu}=2\ln\overline{X}-\frac{1}{2}\ln(\frac{1}{n}\sum_{i=1}^{n}X_i^2)\]\[\hat{\sigma^2}=\ln(\frac{1}{n}\sum_{i=1}^{n}X_i^2)-2\ln\overline{X}\]另一方面，其似然函数为\begin{align*}
+					L(\mu,\sigma^2) & = \prod_{i=1}^{n}(2\pi\sigma^2)^{-\frac{1}{2}}\exp\{-\frac{1}{2\sigma^2}(\ln x_i-\mu)^2\}\\
+					& = (2\pi\sigma^2)^{-\frac{n}{2}}\exp\{-\frac{1}{2\sigma^2}\sum_{i=1}^{n}(\ln x_i-\mu)^2\}
+				\end{align*}
+				\begin{align*}
+					\ln L(\mu,\sigma^2) & = -\frac{n}{2}\ln(2\pi\sigma^2)-\frac{1}{2\sigma^2}\sum_{i=1}^{n}(\ln x_i-\mu)^2
+				\end{align*}
+				令\[\frac{\partial\ln L(\mu,\sigma^2)}{\partial\mu}=0\]\[\frac{\partial\ln L(\mu,\sigma^2)}{\partial\sigma^2}=0\]可以解得极大似然估计值\[\hat{\mu}=\frac{1}{n}\sum_{i=1}^{n}\ln X_i\]\[\hat{\sigma^2}=\frac{1}{n}\sum_{i=1}^{n}(\ln X_i-\frac{1}{n}\sum_{i=1}^{n}\ln X_i)^2\]
+			\subsection*{4}
+				先求矩估计：\begin{align*}
+					\mu_1 & = EX\\
+					& = \int_{\mu}^{+\infty}\frac{1}{\theta}xe^{-(x-\mu)/\theta}dx\\
+					& = -\int_{\mu}^{+\infty}xd(e^{-(x-\mu)/\theta})\\
+					& = -xe^{-(x-\mu)/\theta})|_\mu^\infty + \int_{\mu}^{+\infty}e^{-(x-\mu)/\theta}dx\\
+					& = \mu+\theta\\
+					\mu_2 & = E(X^2)\\
+					& = \int_{\mu}^{+\infty}\frac{1}{\theta}x^2e^{-(x-\mu)/\theta}dx\\
+					& = \mu^2+2\int_{\mu}^{+\infty}xe^{-(x-\mu)/\theta}dx\\
+					& = \mu^2+2\theta(\mu+\theta)
+				\end{align*}
+				令\[\overline{X}=\mu_1\quad \frac{1}{n}\sum_{i=1}^{n}X_i^2=\mu_2\]解得矩估计值为\[\hat{\mu}=\overline{X}-S_n\quad\hat{\theta}=S_n\]
+				另一方面，其似然函数为\begin{align*}
+					L(\mu,\theta) & = \prod_{i=1}^{n}\frac{1}{\theta}e^{-(x_i-\mu)/\theta}\\
+					& = (\theta)^{-n}e^{-\frac{1}{\theta}\sum_{i=1}^{n}(x_i-\mu)}\\
+					& = (\theta)^{-n}e^{-\frac{1}{\theta}(\sum_{i=1}^{n}x_i-n\mu)}\\
+					& = (\theta)^{-n}e^{-\frac{1}{\theta}(n\overline{X}-n\mu)}\\
+					\ln L(\mu,\theta) & = -n\ln\theta-\frac{1}{\theta}(n\overline{X}-n\mu)
+				\end{align*}
+				令\[\frac{\partial\ln L(\mu,\theta)}{\partial\mu}=\frac{\partial\ln L(\mu,\theta)}{\partial\theta}=0\]然而\[\frac{\partial\ln L(\mu,\theta)}{\partial\mu}=\frac{n}{\theta}>0\]由后者可以得到\[\overline{X}=\theta+\mu\]而前者的式子恒大于0，说明似然函数随$\mu$单调递增，取$\mu=X_{(1)}=\min\{x_1,x_2,L,x_n\}$，即有极大似然估计值\[\hat{\mu}=X_{(1)}\quad\hat{\theta}=\overline{X}-X_{(1)}\]
+			\subsection*{6}
+				由题意可知总体为$[\theta,2\theta]$上的均匀分布满足$X\sim U[\theta,2\theta]$.于是\[EX=\frac{3}{2}\theta\]令$\overline{X}=EX$，则有\[\theta=\frac{2}{3}\overline{X}\]另一方面，其似然函数\[L(\theta)=\frac{1}{\theta^n}\quad\frac{1}{2}X_{(n)}\le\theta\le X_{(1)}\]又因为\[\frac{d\ln L(\theta)}{d\theta}=-\frac{n}{\theta}<0\]所以最大似然估计值为$\hat{\theta}=\frac{1}{2}X_{(n)}$
+			\subsection*{7}
+				首先计算矩估计如下\[EX=2\theta(1-\theta)+2\theta^2+3(1-2\theta)=3-4\theta\]又因为\[\overline{X}=\frac{1}{8}(3+1+3+0+3+1+2+3)=2\]令$EX=\overline{X}$，可得\[\theta=\frac{1}{4}\]另一方面，其似然函数\begin{align*}
+					L(\theta) & =  (1-2\theta)^4\cdot[2\theta(1-\theta)]^2\cdot\theta^4\\
+					& = 4\theta^6(1-\theta)^2(1-2\theta)^4\\
+					\ln L(\theta) & = 2\ln2+6\ln\theta+2\ln(1-\theta)+4\ln(1-2\theta)
+				\end{align*}
+				令$\frac{d\ln L(\theta)}{d\theta} = 0$可得\[\theta=\frac{7\pm\sqrt{13}}{12}\]又因为$0<\theta<1/2$，所以极大似然估计值为\[\hat{\theta}=\frac{7-\sqrt{13}}{12}\]
+			\subsection*{10}
+				$\hat{\theta}$的方差如下计算：\begin{align*}
+					D(\hat{\theta}) & = c^2D(\hat{\theta_1})+(1-c)^2\hat{\theta_2}\\
+					& = c^2\sigma_1^2+(1-c)^2\sigma_2^2\\
+					& = (\sigma_1^2+\sigma_2^2)c^2-2\sigma_2^2c+\sigma_2^2
+				\end{align*}
+				有二次函数性质易知当$c=\frac{\sigma_2^2}{\sigma_1^2+\sigma_2^2}$时，方差最小.
+			\subsection*{11}
+				因为$X_1,X_2,\cdots,X_n$是来自总体$N(\mu,\sigma^2)$的一个样本，所以\[EX_i=EX=\mu\quad DX_i=DX=\sigma^2\]所以\begin{align*}
+					E[c\sum_{i=1}^{n-1}(X_{i+1}-X_i)^2] & = c\sum_{i=1}^{n-1}[E(X_{i+1})^2+E(X_{i})^2-2E(X_iX_{i+1})]\\
+					& = c(n-1)[\mu^2+\sigma^2+\mu^2+\sigma^2-2\mu^2]\\
+					& = 2c(n-1)\sigma^2
+				\end{align*}
+				令$E[c\sum_{i=1}^{n-1}(X_{i+1}-X_i)^2]=\sigma^2$，可得\[c=\frac{1}{2(n-1)}\]
+			\subsection*{12}
+				正态分布的似然函数已经在前面的题目中求过，过程不再赘述.令\[\frac{\partial \ln L(\sigma^2)}{\partial\sigma^2}=0\]得到\[-\frac{n}{2\sigma^2}+\frac{1}{2\sigma^4}\sum_{i=1}^{n}(X_i-\mu)^2\]解之得\[\hat{\sigma^2}=\frac{1}{n}\sum_{i=1}^{n}(X_i-\mu)^2\]由课堂内容易知$S^2$为无偏估计，下面证明此时$\hat{\sigma^2}$是无偏估计.\begin{align*}
+					E(\hat{\sigma^2}) & = \frac{1}{n}\sum_{i=1}^{n}E(X_i-\mu)^2\\
+					& = \frac{1}{n}\sum_{i=1}^{n}(EX_i^2-2\mu EX_i+\mu^2)\\
+					& = (EX_i)^2+DX_i-\mu^2\\
+					& = \sigma^2
+				\end{align*}
+				所以$\hat{\sigma^2}$是$\sigma^2$的无偏估计.此时对于$\hat{\sigma^2}$，因为$X_i\sim N(\mu,\sigma^2)$，所以$\frac{X_i-\mu}{\sigma}\sim N(0,1)$，由此可以得到\[\frac{\sum_{i=1}^{n}(X_i-\mu)^2}{n}\cdot\frac{n}{\sigma^2}\sim \chi^2(n)\]又$D(\chi^2(n))=2n$，所以\[D(\hat{\sigma^2})=\frac{\sigma^4}{n^2}D(\chi^2(n))=\frac{2\sigma^4}{n}=MSE(\hat{\sigma^2})\]又因为\[D(S^2)=\frac{\sigma^4}{(n-1)^2}D(\chi^2(n-1))=\frac{2\sigma^4}{n-1}=MSE(S^2)\]因此\[MSE(\hat{\sigma^2})<MSE(S^2)\]
+			
+	\end{CJK}
+\end{document}

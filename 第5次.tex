@@ -1,0 +1,179 @@
+\documentclass[twocolumn]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage{CJKutf8}
+\usepackage{CJK}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{newfloat}
+\usepackage{setspace}
+\usepackage{tikz}
+\usepackage{enumerate}
+\usepackage{listings}
+\usepackage{fancyhdr}
+\allowdisplaybreaks[4]
+\usetikzlibrary{arrows,graphs}
+\usetikzlibrary{graphs}
+\usetikzlibrary{graphs.standard}
+\pagestyle{fancy}
+\fancyhead[L]{Probability and Mathematical Statistics}
+\begin{document}
+	\begin{CJK}{UTF8}{gbsn}		
+			\title{概率论与数理统计第5次作业}
+			\author{161220049\quad 黄奕诚}
+			\maketitle
+			
+			\section*{1.教材习题四}
+			\subsection*{(4)}
+				\begin{enumerate}[(1)]
+					\item 由于$P(X=1)+P(X=2)=1$，故$X$可取1或2，又因为$X$与$Y$独立同分布，所以易知$(U,V)$的概率分布情况如下:
+					\begin{align*}
+						& P(U=1,V=1)=\frac{2}{3}\cdot\frac{2}{3}=\frac{4}{9}\\
+						& P(U=2,V=1)=2\cdot\frac{2}{3}\cdot\frac{1}{3}=\frac{4}{9}\\
+						& P(U=2,V=2)=\frac{1}{3}\cdot\frac{1}{3}=\frac{1}{9}
+					\end{align*}
+					\item 由上一问求出的概率分布，及期望的定义可知，
+					\begin{align*}
+						& E(U) = 1\cdot\frac{4}{9}+2\cdot\frac{5}{9}=\frac{14}{9} \\
+						& E(V) = 1\cdot\frac{8}{9}+2\cdot\frac{1}{9}=\frac{10}{9}
+					\end{align*}
+					\item 根据定义可得
+					\begin{align*}
+						& cov(U,V)\\
+						= & E(UV)-E(U)\cdot E(V)\\
+						= & 1\cdot\frac{4}{9}+2\cdot\frac{4}{9}+4\cdot\frac{1}{9}-\frac{140}{81}\\
+					    = & \frac{4}{81}
+					\end{align*}
+				\end{enumerate}
+			\subsection*{(19)}
+				由$EX=1,EY=2$可知$\lambda_x=1,\lambda_y=2$.因此
+				\begin{align*}
+					& E(X^2)=\lambda_x^2+\lambda_x=2 \\
+					& E(Y^2)=\lambda_y^2+\lambda_y=6
+				\end{align*}
+				又因为$X$和$Y$独立，所以\[E(XY)=E(X)E(Y)\]
+				因此有\begin{align*}
+					& E(X+Y)^2 \\
+					= & E(X^2+Y^2+2XY) \\
+					= & E(X^2)+E(Y^2)+2E(X)E(Y) \\
+					= & 2+6+2\cdot2 \\
+					= & 12 
+				\end{align*}
+			\subsection*{(23)}
+				\begin{proof}
+					因为$f(x)$在$[0,+\infty]$是一个单调非减函数，所以对于任意的$|X|\ge x$，有$f(|X|)\ge f(x)$.又$f(x)>0$.由此由马尔可夫不等式可知，\begin{align*}
+						P(|X|\ge x)=P(f(|X|)\ge f(x))\le\frac{E[f(|X|)]}{f(x)}
+					\end{align*}
+				\end{proof}
+			\section*{2.}
+			\subsection*{a)}
+				方法1:\begin{align*}
+				& P(max(X,Y)=n)\\
+				= & P(X=n,Y<n)+P(x<n,y=n)P(X=Y=n)\\
+				= & (1-p)^{n-1}p[1-(1-q)^{n-1}]+(1-q)^{n-1}q[1-(1-q)^{n-1}]\\
+				+ & pq(1-q)^{n-1}(1-p)^{n-1}\\
+				= & p(1-p)^{n-1}+q(1-q)^{n-1}+(pq-p-q)(1-p)^{n-1}(1-q)^{n-1}
+				\end{align*}
+				因此\begin{align*}
+					& E(max(X,Y))=\sum_{n=1}^{+\infty}nP(max(X,Y)) \\
+					& = \sum_{n=1}^{+\infty}p(1-p)^{n-1}+q(1-q)^{n-1}\\
+					& +(pq-p-q)(1-p)^{n-1}(1-q)^{n-1}\\
+					& = p\frac{1}{p^2}+q\frac{1}{q^2}+(pq-p-q)\frac{1}{(pq-p-q)^2}\\
+					& = \frac{1}{p}+\frac{1}{q}+\frac{1}{pq-p-q}
+				\end{align*}
+				方法2:由全期望公式可知\begin{align*}
+					& E(max(X,Y))\\
+					= & \sum_{n=1}^{+\infty}P(Y=n)E[max(X,Y)|Y=n]\\
+					= & \sum_{n=1}^{+\infty}P(Y=n)[\sum_{k=1}^{n}nP(X\le n|Y=n)\\
+					+ & \sum_{k=n+1}^{+\infty}kP(X>n|Y=n)]\\
+					= & \frac{1}{p}+\frac{1}{q}+\frac{1}{pq-p-q}
+				\end{align*}
+			\subsection*{b)}
+				\begin{align*}
+					& E[X|X\le Y]\\
+					= & \sum_{n=1}^{+\infty}nP(X=n|Y\ge n)\\
+					= & \sum_{n=1}^{+\infty}n(1-p)^{n-1}p(1-q)^{n-1}\\
+					= & p\cdot\frac{1}{[1-(1-p)(1-q)]^2}\\
+					= & \frac{p}{(pq-p-q)^2}
+				\end{align*}
+			\section*{3.}
+				设指示变量$X_i$如下定义:\\若$\pi(i)=i$则$X_i=1$，否则$X_i=0$.由此可知\begin{align*}
+					& E[X]=E[\sum_{i=1}^{n}X_i]\\
+					= & \sum_{i=1}^{n}E[X_i]\\
+					= & \sum_{i=1}^{n}\frac{(n-1)!}{n!}\\
+					= & 1
+				\end{align*}
+				又因为\begin{align*}
+					& E[X^2] = E[(\sum_{i=1}^{n}X_i)^2]\\
+					= & \sum_{i,j\in[1,n]}E(X_iX_j)  
+				\end{align*}
+				由于当$i\neq j$时，$E(X_iX_j)=\frac{1}{n^2}(n>1)$.当$i=j$时，$E(X_iX_j)=\frac{1}{n}$.因此当$n=1$时，$E(X^2)=1$，当$n=2$时，\[E(X^2)=\frac{1}{n}\cdot n+\frac{n^2-n}{n^2}=2-\frac{1}{n}\]
+				综上，$D(X)=1-\frac{1}{n}$.
+			\section*{4.}
+				设$T_2$表示连续出现2个6所需实验次数，$A_{1,2}$表示出现1个6到出现连续2个6所需实验次数，于是有\begin{align*}
+					T_2 = T_1 + A_{1,2}
+				\end{align*}
+				期望值则为\begin{align*}
+					 & E[T_2]=E[T_1]+E[A_{1,2}]\\
+					 & E[T_2]=6+\frac{1}{6}\cdot1+\frac{5}{6}(E[T_2]+1)
+				\end{align*}
+				所以可以求得\[E[T_2]=42\]
+				因此所抛次数的期望值为42.
+			\section*{5.}
+				设$d$天后，这$d$天中涨股的天数为$X$.则$X\approx B(d,p)$.由此当$X=k$时，第$d$天的价格为\[C=r^k(\frac{1}{r})^{d-k}\]也即\[P(X=k)=C_d^kp^k(1-p)^{d-k}\]进而\begin{align*}
+					& E(C)=\sum_{k=0}^{d}r^{2k-d}C_d^kp^k(1-p)^{d-k}\\
+					= & \sum_{k=0}^{d}C_d^k(pr)^k(\frac{1-p}{r})^{d-r}\\
+					= & (pr+\frac{1-p}{r})^d
+				\end{align*}
+				又因为\begin{align*}
+					& E(C^2)=\sum_{k=0}^{d}C_d^k(r^2p)^k(\frac{1-p}{r^2})^{d-k}\\
+					= & (pr^2+\frac{1-p}{r^2})^d
+				\end{align*}
+				因此方差\begin{align*}
+					& D(C) = E(C^2)-(E(C))^2\\
+					= & (pr^2+\frac{1-p}{r^2})^d-(pr+\frac{1-p}{r})^{2d}
+				\end{align*}
+			\section*{6.}
+			\subsection*{a)}
+				记异或运算结果$Y_i$得到之前的比特对为$(a_i,b_i)$.则易知\begin{align*}
+					P(Y_i=1) & = P(a_i=1,b_i=0)+P(a_i=0,b_i=1)\\
+					& = \frac{1}{4}+\frac{1}{4}=\frac{1}{2}
+				\end{align*}
+				由于$Y_i$的取值只能为0或1，所以\[P(Y_i=0)=1-\frac{1}{2}=\frac{1}{2} \]
+			\subsection*{b)}
+				\begin{proof}
+					由于\[\prod_{i=1}^{n(n-1)/2}P(Y_i=1)=(\frac{1}{2})^{n(n-1)/2}\]而当$n\ge3$时，必有至少两个比特相同，所以\[P(Y_1=Y_2=\cdots=Y_{n(n-1)/2}=1)=0\]所以$Y_i$并不是相互独立.
+				\end{proof}
+			\subsection*{c)}
+				\begin{proof}
+					因为\begin{align*}
+						& P(Y_iY_j=1)=\frac{1}{2}\cdot\frac{1}{2}=\frac{1}{4}\\
+						& P(Y_iY_j=0)=1-\frac{1}{4}=\frac{3}{4}\\
+						& E(Y_iY_j)=\frac{1}{4}\\
+						& E(Y_i)=E(Y_j)=\frac{1}{2}\\
+						& E(Y_i)E(Y_j)=\frac{1}{4}
+					\end{align*}
+					所以有\[E(Y_iY_j)=E(Y_i)E(Y_j)\]
+				\end{proof}
+			\subsection*{d)}
+				易知\begin{align*}
+					E(Y) & = E(\sum_{i=1}^{n(n-1)/2}Y_i) \\
+					& = \sum_{i=1}^{n(n-1)/2}E(Y_i)\\
+					& = \frac{n(n-1)}{4}\\
+					E(Y^2) & = E((\sum_{i=1}^{n(n-1)/2}Y_i)^2)\\
+					& = \sum_{i,j\in[1,n(n-1)/2]}E(Y_iY_j)
+				\end{align*}
+				又因为当$i=j$时，$E(Y_iY_j)=\frac{1}{2}$；\\当$i\neq j$时，$E(Y_iY_j)=\frac{1}{4}$.因此\[E(Y^2)=\frac{n^4-4n^3+9n^2-6n}{16}\]所以\[D(Y)=E(Y^2)-E^2(Y)=\frac{n(n-1)(3-n)}{8}\]
+			\subsection*{e)}
+				由切比雪夫不等式可知\begin{align*}
+					P(|Y-E(Y)|\ge n) & \le \frac{D(Y)}{n^2}\\
+					& = \frac{1}{2}-(\frac{3}{8n}+\frac{n}{8})\\
+					& \le\frac{1}{2}-(\frac{3}{16}+\frac{2}{8})\\
+					& = \frac{1}{16}
+				\end{align*}
+				所以上界可以是$\frac{1}{16}$.
+	\end{CJK}
+\end{document}

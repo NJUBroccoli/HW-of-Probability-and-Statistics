@@ -1,0 +1,72 @@
+\documentclass[twocolumn]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage{CJKutf8}
+\usepackage{CJK}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{newfloat}
+\usepackage{setspace}
+\usepackage{tikz}
+\usepackage{enumerate}
+\usepackage{listings}
+\usepackage{fancyhdr}
+\allowdisplaybreaks[4]
+\usetikzlibrary{arrows,graphs}
+\usetikzlibrary{graphs}
+\usetikzlibrary{graphs.standard}
+\pagestyle{fancy}
+\fancyhead[L]{Probability and Mathematical Statistics}
+\begin{document}
+	\begin{CJK}{UTF8}{gbsn}		
+			\title{概率论与数理统计第4次作业}
+			\author{161220049\quad 黄奕诚}
+			\maketitle
+			
+			\section*{1.教材习题一、二}
+			\subsection*{(36)}
+				设共有外线$n$条，并设$x$为在某一时刻，需要外线通话的分机个数.易知\[x\sim B(100,0.05)\]\\
+				又因为要求\[P(x\le n)=0.9\]由中心极限定理，\[P(x\le n)=\Phi(\frac{n-100\cdot0.05}{\sqrt{100\cdot0.05\cdot0.95}})\ge0.9\]即\[\Phi(\frac{n-5}{\sqrt{4.5}})\ge0.9\]即\[\frac{n-5}{\sqrt{4.5}}\ge1.29\]可得$n$的最小整数为8.
+			\subsection*{(7)}
+				\begin{enumerate}[(1)]
+					\item 设该人试验成功为事件$A$.于是\[P(A)=\frac{1}{C_8^4}=\frac{1}{70}\]故试验成功一次的概率为$\frac{1}{70}$.
+					\item 设该人独立试验10次成功3次的概率为$p$，则\[p=C_{10}^3(\frac{1}{70})^3(\frac{69}{70})^7\approx0.0003163\]
+					猜对的概率微乎其微.偏向于相信该人是确有区分能力的.
+				\end{enumerate}
+			\subsection*{(8)}
+				\begin{enumerate}[(1)]
+					\item 当必须有油船转港时，有$X\ge4$.又因为$X$服从参数$\lambda=2.5$的泊松分布.故\begin{align*}
+						P(X\ge4) & =1-P(X\le3) \\ & =1-e^{-2.5}(\frac{2.5^0}{0!}+\frac{2.5^1}{1!}+\frac{2.5^2}{2!}+\frac{2.5^3}{3!})\\&\approx0.242
+					\end{align*}
+					\item 因为$P(X=0)=\frac{1}{e^{2.5}},P(X=1)=\frac{2.5}{e^{2.5}},P(X=2)=\frac{3.125}{e^{2.5}}$.对于任意的$k\ge2$，有\[\frac{P(X=k+1)}{P(X=k)}=\frac{2.5}{k+1}<1\]因此$P(X=2)$是最大值，也即一天中最大可能到达港口的油船数为2，概率为0.257
+					\item 设服务能力提高到$n$只油船时，能使到达油船以90\%的概率得到服务.\\
+					由题意可知，$P(X\le n)\ge0.9.$通过查表可知$P(X\le4)<0.9,P(X\le5)\ge0.9$.因此需要将服务能力提高到5只油船.
+				\end{enumerate}
+			\section*{2.}
+				几何分布是负二项分布的一种特殊情况，在此题中相当于``正面向上次数为1''时停止，即$k=1$的情况.扩展为负二项分布时，设共抛掷$n$次，正面次数为$k$，则反面次数为$n-k$.当$n\ge k-1$，有\[P(X=n)=C_{k-1}^{n-1}p^k(1-p)^{n-k}\]当$n<k-1$时，显然有$P(X=n)=0$.
+			\section*{3.}
+				\begin{enumerate}[a)]
+					\item 由$P(X=Y=k)$可得\[(1-p)^{k-1}p=(1-q)^{k-1}q\]即\[k-1=\frac{\ln q-\ln p}{\ln(1-p)-\ln(1-q)}\]代入可得\[P(X=Y)=(1-p)^{\frac{\ln q-\ln p}{\ln(1-p)-\ln(1-q)}}\]
+					\item 易知\begin{align*}
+						P(\min(X,Y)=k) & = P(X=k,Y=k)+P(X>k,Y=k)+P(X=k,Y>k) \\
+						& = (1-p)^{k-1}p(1-q)^{k-1}q+(1-p)^k(1-q)^{k-1}q+(1-q)^k(1-p)^{k-1}p \\
+						& = [(1-p)(1-q)]^{k-1}(p+q-pq)
+					\end{align*}
+				\end{enumerate}
+			\section*{4.}
+				一种方法：\begin{itemize}
+					\item 两次两次地抛，以每两次的抛掷结果作为一个事件
+					\item 若两次的结果相同，即皆正皆负，那么继续抛两次，直到出现两枚硬币结果不同的结果为止
+					\item 若两次结果不同，当先正后负时，记此次结果为1，否则当先负后正，记此次结果为0.
+				\end{itemize}
+				证明合理性：只考虑两次试验，记两次结果相同为$A$，先正后负$B$，先负后正$C$.有\begin{align*}
+					P(A) & = p^2+(1-p)^2 = 2p^2-2p+1\\
+					P(B) & = p(1-p) \\
+					P(C) & = (1-p)p
+				\end{align*}
+				故有$P(B)=P(C)$.而考虑``是否抛出两个相同结果的硬币''时，之前的规定便得到了几何分布，所抛硬币次数的期望为$\frac{1}{2p-2p^2}<\frac{1}{p(1-p)}$.因此我的方法可行.
+	\end{CJK}
+\end{document}

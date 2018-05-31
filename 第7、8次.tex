@@ -1,0 +1,199 @@
+\documentclass[twocolumn]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage{CJKutf8}
+\usepackage{CJK}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{newfloat}
+\usepackage{setspace}
+\usepackage{tikz}
+\usepackage{enumerate}
+\usepackage{listings}
+\usepackage{fancyhdr}
+\allowdisplaybreaks[4]
+\usetikzlibrary{arrows,graphs}
+\usetikzlibrary{graphs}
+\usetikzlibrary{graphs.standard}
+\pagestyle{fancy}
+\fancyhead[L]{Probability and Mathematical Statistics}
+\begin{document}
+	\begin{CJK}{UTF8}{gbsn}		
+			\title{概率论与数理统计第7、8次作业}
+			\author{161220049\quad 黄奕诚}
+			\maketitle
+			
+			\section*{教材习题二}
+				\subsection*{12.}
+					\begin{enumerate}[(1)]
+						\item 因为\[\int_{-\infty}^{+\infty}p(x)dx=1\]故\[\int_{0}^{1}Ax^3dx=1\]解得\[A=4\]
+						\item \[F(x)=\int_{-\infty}^{x}p(t)dt=\]当$x\le0$时，$F(x)=0$.当$x\ge1$时，$F(x)=1$.当$0<x<1$时，\[F(x)=\int_{0}^{x}4t^3dt=x^4\]因此\begin{equation*}
+						F(x)=\left\{
+						\begin{array}{rcl}
+						0 & & {x\le0}\\
+						x^4 & & {0<x<1}\\
+						1 & & {x\ge1}\\
+						\end{array} \right.
+						\end{equation*}
+						\item $P(X<B)=F(B),P(X>B)=1-F(B)$.若$P(X<B)=P(X>B)$，则有$F(B)=1/2$.由此可知$B=\sqrt[4]{1/2}$.
+					\end{enumerate}
+				\subsection*{17.}
+					\begin{enumerate}[(1)]
+						\item 设电子元件损坏为事件$A$.该电子元件损坏的概率为$p(A)$，因为电源电压$X(V)$服从正态分布$N(220,25^2)$，所以可知\begin{align*}
+							p(A) & = 0.1\times F(200) + 0.001\times [F(240)-F(200)]+0.2\times [1-F(240)] \\
+							& = 0.099F(200)-0.199F(240)+0.2\\
+							& = 0.099\Phi(\frac{200-220}{25})-0.199\Phi(\frac{240-220}{25})+0.2\\
+							& = 0.299-0.298\Phi(\frac{4}{5})\\
+							& \approx 0.299-0.298\cdot0.7881\\
+							& = 0.0641
+						\end{align*}
+						\item 设电压介于200到240V之间的概率为$p_1$.则\begin{align*}
+							p_1 & = P(200\le X\le 240|A)=\frac{P(200\le X\le 240, A)}{P(A)}\\
+							& = \frac{0.001\times P(200\le X\le 240)}{0.0641}\\
+							& \approx  0.009
+						\end{align*}
+						故此时电压介于200-240V的概率为0.009
+					\end{enumerate}
+				\subsection*{21.}
+					\[P(Y\le x)=P(2X+4\le x)=P(X\le\frac{x-4}{2})\]于是$Y$的分布函数\[F(x)=\int_{-\infty}^{(x-4)/2}p(t)dt=\int_{-\infty}^{(x-4)/2}\frac{1}{4\sqrt{\pi}}e^{-\frac{1}{16}(t-2)^2}\]所以\[p(x)=F'(x)=\frac{1}{2}\cdot\frac{1}{4\sqrt{\pi}}e^{-\frac{1}{16}(\frac{x-4}{2}-2)^2}=\frac{1}{8\sqrt{\pi}}e^{-\frac{1}{64}(x-8)^2}\]
+				\subsection*{24.}
+					\[P(Y\le x)=P(1-\sqrt[3]{X}\le x)=P(X\ge(1-x)^3)=\]\[1-P(X\le(1-x)^3)\]于是$Y$的分布函数
+					\[F(x)=1-\int_{-\infty}^{(1-x)^3}\frac{dt}{\pi(1+t^2)}\]因此\[p(x)=F'(x)=\frac{3(1-x)^2}{\pi[1+(1-x)^6]}\]
+			\section*{教材习题三}
+				\subsection*{4.}
+					\begin{enumerate}[(1)]
+						\item \begin{align*}
+							P(X>2Y) & = \int_{0}^{1}\int_{0}^{\frac{x}{2}}(2-x-y)dydx\\
+							& = \int_{0}^{1}dx\int_{0}^{\frac{x}{2}}(2-x-y)dy 
+						\end{align*}
+						设$u=x+y$，则有$y=u-x$.于是\begin{align*}
+							P(X>2Y) & = \int_{0}^{1}dx\int_{x}^{\frac{3x}{2}}(2-u)du\\
+							& = \int_{0}^{1}(x-\frac{5x^2}{8})dx\\
+							& = \frac{1}{2}-\frac{5}{24}\\
+							& = \frac{7}{24}
+						\end{align*}
+						\item $F(z)=P(X+Y\le z)$.当$z\le0$时，由于此时$p(x,y)=0$，因此$p_Z(z)=0$.当$z\ge2$时，有\[F(z)=\int_{0}^{1}\int_{0}^{1}p(x,y)dxdy\]它是常数，导数为0，因此此时$p_Z(z)=0$.当$1\le z<2$时，$x$可以取遍$z-1$到1中的数，故
+						\[p_Z(z)=\int_{z-1}^{1}p(x,z-x)dx=(2-z)^2\]当$0<z\le1$时，\[p_Z(z)=\int_{0}^{z}p(x,z-x)dx=z(2-z)\]综上所述，\begin{equation*}
+						p_Z(z)=\left\{
+						\begin{array}{rcl}
+						0 & & {z\le0}\\
+						z(2-z) & & {0<z\le1}\\
+						(2-z)^2 & & {1<z\le2}\\
+						0 & & {z>2}\\
+						\end{array} \right.
+						\end{equation*}
+					\end{enumerate}
+				\subsection*{5.}
+					\begin{enumerate}[(1)]
+						\item 由全概率公式可知\begin{align*}
+							& p_X(x)=\int_{-\infty}^{+\infty}p(x,y)dy=2x(0<x<1)\\
+							& p_Y(y)=\int_{-\infty}^{+\infty}p(x,y)dx=\int_{\frac{y}{2}}^{1}dx=1-\frac{y}{2}(0<y<2)
+						\end{align*}
+						\item 当$z\le0$或$z\ge2$时，有$F(z)=0$，故$p_Z(z)=0$.当$0<z<2$时，\begin{align*}
+							F(z) & =\int_{0}^{1}\int_{0}^{2x}dxdy-\int_{z/2}^{1}\int_{0}^{2-z}dxdy\\
+							 & = 1-\frac{1}{2}(1-\frac{z}{2})(2-z) \\
+							 & = z-\frac{z^2}{4}
+						\end{align*}
+						因此$p_Z(z)=F'(z)=1-\frac{z}{2}$.综上所述\begin{equation*}
+						p_Z(z)=\left\{
+						\begin{array}{rcl}
+						0 & & {z\le0}\\
+						1-\frac{z}{2} & & {0<z<2}\\
+						0 & & {z\ge2}\\
+						\end{array} \right.
+						\end{equation*}
+						\item \begin{align*}
+							P(Y\le\frac{1}{2}|X\le\frac{1}{2}) & = \frac{P(X\le\frac{1}{2}, Y\le\frac{1}{2})}{P(X\le\frac{1}{2})}\\
+							& = \frac{\int_{0}^{1/2}\int_{0}^{2x}dxdy-\int_{1/4}^{1/2}\int_{1/2}^{2x}dxdy}{\int_{0}^{1/2}\int_{0}^{2x}dxdy} \\
+							& = 1-\frac{1/16}{1/4}\\
+							& = \frac{3}{4}
+						\end{align*}
+					\end{enumerate}
+				\subsection*{12.}
+					\begin{enumerate}[(1)]
+						\item 由\[\int_{0}^{+\infty}dx\int_{-x}^{x}(cx^2e^{-x}-cy^2e^{-x})dy=1\]
+						也即\[\frac{4}{3}c\int_{0}^{+\infty}x^3e^{-x}dx=1\]因而\[\frac{4c}{3}\Gamma(4)=1\]即得\[c=\frac{1}{8}\]
+						\item \begin{align*}
+							p_X(x) & = \int_{-x}^{x}p(x,y)dy\\& = \frac{1}{8}(x^2e^{-x}y-\frac{1}{3}y^3e^{-x})|_{-x}^x \\
+							& = \frac{1}{6}x^3e^{-x}(0<x<+\infty)
+						\end{align*}
+						\begin{align*}
+							p_Y(y) & = \int_{|y|}^{+\infty}p(x,y)dx\\
+							& = \frac{1}{8}\int_{|y|}^{+\infty}(x^2e^{-x}-y^2e^{-x})dx\\
+							& = \frac{1}{8}(y^2-x^2-2x-2)e^{-x}|_{|y|}^{+\infty}\\
+							& = \frac{|y|+1}{4}e^{-|y|}(-\infty<y<+\infty)
+						\end{align*}
+						因为不能总满足\[p(x,y)=p(x)p(y)\]因为$X$与$Y$不独立.
+						\item \begin{align*}
+							& p_{X|Y=y}(x)=\frac{p(x,y)}{p_Y(y)}=\frac{x^2-y^2}{2(|y|+1)}e^{|y|-x}(x>0)\\
+							& p_{Y|X=x}(y)=\frac{p(x,y)}{p_X(x)}=\frac{3(x^2-y^2)}{4x^3}(|y|<x)
+						\end{align*}
+					\end{enumerate}
+			\section*{2.}
+				\begin{proof}
+					因为随机变量$X$服从参数为$\lambda$的指数分布，所以有\begin{equation*}
+					p(x)=\left\{
+					\begin{array}{rcl}
+					\lambda e^{-\lambda x} & & {x>0}\\
+					0 & & {x\le0}
+					\end{array} \right.
+					\end{equation*}
+					由此可知\begin{align*}
+						F_Y(y)&=P(Y\le y)\\ & =P(1-e^{-\lambda X}\le y)\\&=P(X\le\frac{-1}{\lambda}\ln(1-y))\\&=F_X(-\frac{1}{\lambda}\ln(1-y))
+					\end{align*}
+					当$0\le y\le1$时，有\[F_Y(y)=F_X(-\frac{1}{\lambda}\ln(1-y))=y\]服从均匀分布.可以给出如下算法:输入$\lambda$，随机取若干个$[0,1]$上的数$y$，相应地输出$-\frac{1}{\lambda}\ln(1-y)$，如此即可得到服从参数为$\lambda$的指数分布.
+				\end{proof}
+			\section*{3.}
+				利用指示变量的方法，设$X_i(1\le i\le n)$为1当且仅当第$i$个圆弧长度超过了$\frac{1}{n}$.并设$p_i$为第$i$个圆弧长度超过$\frac{1}{n}$的概率.有\[p_i=p(1\le i\le n)\]于是\[E(X)=\sum_{i=1}^{n}E(X_i)=np\]对于$p$的求法，假定一个圆周上只有任意的一点，现在再在圆周上任意撒$n-1$个点，它们与第一个点的距离的最小值大于$1/n$即可满足条件，且撒点遵循均匀分布.又因为每次撒点互为独立事件，所以\[p=(1-\frac{1}{n})^{n-1}\]因此\[E(X)=np=n(1-\frac{1}{n})^{n-1}\]
+			\section*{4.}
+				\begin{enumerate}[a)]
+					\item \begin{proof}
+						由题意可知\begin{equation*}
+						p_{X_i}(x_i)=\left\{
+						\begin{array}{rcl}
+						\lambda e^{-\lambda x_i} & & {x>0}\\
+						0 & & {x\le0}
+						\end{array} \right.(i=1,2)
+						\end{equation*}设$Y=X_1+X_2$.
+						根据卷积公式可知\begin{align*}
+							p_Y(y) & = \int_{-\infty}^{+\infty}p_{X_1}(x_1)p_{X_2}(y-x_1)dx_1
+						\end{align*}
+						当$z\le0$时，$p_Y(y)=0$.当$z>0$时，\[p_Y(y)=\int_{0}^{y}\lambda^2e^{-\lambda y}dx_1=\lambda^2ye^{-\lambda y}\]因此\begin{equation*}
+						p_Y(y)=\left\{
+						\begin{array}{rcl}
+							\lambda^2 ye^{-\lambda y} & & {y>0}\\
+							0 & & {y\le0}
+						\end{array} \right.
+					\end{equation*}
+						所以$X_1+X_2$不服从指数分布.
+					\end{proof}
+				\item \begin{proof}
+					猜想\begin{equation*}
+					p_Y(y)=\left\{
+					\begin{array}{rcl}
+					\frac{y^{N-1}}{(N-1)!}\cdot e^{-y} & & {y>0}\\
+					0 & & {y\le0}
+					\end{array} \right.
+					\end{equation*}
+					利用数学归纳法可以证明之，过程与第1小问基本一致，在此不再赘述.又因为$N$遵循参数为$p$的几何分布，所以当$y>0$时，\begin{align*}
+						p_Y(y) & =\sum_{N=1}^{+\infty}(1-p)^{N-1}\cdot p\cdot\frac{y^{N-1}}{(N-1)!}\cdot e^{-y}\\
+						& = pe^{-y}\sum_{N=1}^{+\infty}\frac{[y(1-p)]^{N-1}}{(N-1)!}\\
+						& = pe^{-y}\cdot e^{1-N}\\
+						& = pe^{-py}
+					\end{align*}
+					因此有\begin{equation*}
+					p_Y(y)=\left\{
+					\begin{array}{rcl}
+					pe^{-py} & & {y>0}\\
+					0 & & {y\le0}
+					\end{array} \right.
+					\end{equation*}
+					所以$\sum_{i=1}^{N}X_i$服从参数为$p$的指数分布.
+				\end{proof}
+				\end{enumerate}
+			
+	\end{CJK}
+\end{document}

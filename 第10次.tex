@@ -1,0 +1,73 @@
+\documentclass[twocolumn]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage{CJKutf8}
+\usepackage{CJK}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{newfloat}
+\usepackage{setspace}
+\usepackage{tikz}
+\usepackage{enumerate}
+\usepackage{listings}
+\usepackage{fancyhdr}
+\allowdisplaybreaks[4]
+\usetikzlibrary{arrows,graphs}
+\usetikzlibrary{graphs}
+\usetikzlibrary{graphs.standard}
+\pagestyle{fancy}
+\fancyhead[L]{Probability and Mathematical Statistics}
+\begin{document}
+	\begin{CJK}{UTF8}{gbsn}		
+			\title{概率论与数理统计第10次作业}
+			\author{161220049\quad 黄奕诚}
+			\maketitle
+			
+			\section*{1.教材习题五}
+			\subsection*{(2)}
+				设同时在使用的终端的个数为$X$，则$X~B(120,0.05)$.\[E(X)=120\cdot0.05=6\quad D(X) = 6\cdot0.95=5.7\]
+				由拉普拉斯中心极限定理，$X$近似服从$N(6,5.7)$.则有\begin{align*}
+					P(X\ge10) & = P(\frac{X-6}{\sqrt{5.7}}\ge\frac{10-6}{\sqrt{5.7}})\\
+					& = 1-\Phi(\frac{4}{\sqrt{5.7}})\\
+					& \approx 1-\Phi(1.675)\\
+					& = 0.047
+				\end{align*}
+				所以有10个或更多终端在使用的概率约为0.047.
+			\subsection*{(4)}
+				\begin{enumerate}[(a)]
+					\item 设第$k$个数的误差为$X_k$，则有$X_k~U(-0.5,0.5)$，即\[E(X_k)=0\quad D(X_k)=\frac{1}{12}\]设$X=\sum_{k=1}^{1500}X_k$.则有\[E(X)=0\quad D(X)=125\]由中心极限定理，$X$近似服从$N(0,125)$.于是\begin{align*}
+						P(|X|>15) & = P(X<-15) + P(X>15)\\
+						& = 1-\Phi(\frac{3}{\sqrt{5}})+1-\Phi(\frac{3}{\sqrt{5}})\\
+						& \approx 2-2\Phi(1.342)\\
+						& = 0.18
+					\end{align*}
+					所以误差总和的绝对值超过15的概率是0.18.
+					\item 设最多有$s$个数相加，则\begin{align*}
+						P(|X|<10) & = 2\Phi(\frac{10}{\sqrt{s/12}}) -1\\
+						& \ge0.96
+					\end{align*}
+					也即\[\Phi(\frac{10}{\sqrt{s/12}})\ge0.98\]
+					查表可知\[\frac{10}{\sqrt{s/12}}>2\]
+					即$s<300$.所以最多可有300个数相加使得误差总和的绝对值小于10的概率不小于0.96
+				\end{enumerate}
+			
+			\subsection*{(5)}
+				对于任意的$X_k$，有\[E(X_k)=\int_{0}^{1}6x^2(1-x)=\frac{1}{2}\]又因为序列$\{X_n\}$独立同分布，所以\[E(X)=\sum_{k=1}^{n}X_k = \frac{n}{2}\]由独立同分布大数定律可知$\{X_n\}$服从大数定律，所以\[\lim\limits_{n\to\infty}\frac{1}{n}\sum_{k=1}^{n}X_k=\lim\limits_{n\to\infty}\frac{1}{n}\sum_{k=1}^{n}E(X_k)=\frac{1}{n}\cdot\frac{n}{2}=\frac{1}{2}\]
+			\subsection*{(7)}
+				\begin{proof}
+					由题意可知对任意的$k\in N^*$，都有$X_k~U(0,1)$，所以\[E(X_k)=\frac{1}{2}\quad D(X_k)=\frac{1}{12}\]令$Y_k=\ln X_k$，则$Y_k$独立同分布.\[E(Y_K)=\int_{0}^{1}\ln xdx = -1\]由独立同分布大数定理可知\[\frac{1}{n}\sum_{k=1}^{n}Y_k\xrightarrow{P}-1,n\to\infty\]所以有\[(\prod_{k=1}^{n}X_k)^{\frac{1}{n}}=exp\{\frac{1}{n}\sum_{k=1}^{n}Y_k\}\xrightarrow{P}e^{-1}\]因此存在常数$C=e^{-1}$，使得$Z_n\xrightarrow{P}C$.
+				\end{proof}
+			\section*{2}
+				\begin{proof}
+					因为$g(x,y)$在$(a,b)$连续，所以对任意的$\epsilon>0$，存在$r>0$，对任意$x,y$，若$d((x,y),(a,b))<r$，则有\[|g(x,y)-g(a,b)|<\epsilon\qquad(*)\]又因为$X_n\xrightarrow{P}a$且$Y_n\xrightarrow{P}b$，所以对任意$r>0$，有\[\lim\limits_{n\to\infty}P(|X_n-a|<\frac{r}{\sqrt{2}})=1\]\[\lim\limits_{n\to\infty}P(|Y_n-b|<\frac{r}{\sqrt{2}})=1\]由此可知对任意$r>0$，有\[P(d((X_n,Y_n),(a,b))<r)=1\]又由(*)可知对任意的$\epsilon>0$，有\[\lim\limits_{n\to\infty}P(|g(X_n,Y_n)-g(a,b)|<\epsilon)=1\]也即\[g(X_n,Y_n)\xrightarrow{P}g(a,b)\]
+				\end{proof}
+			\section*{3}
+				\begin{proof}
+					因为$X_i~E(1)$，所以\[E(X_i)=1\quad D(X_i)=1\]考虑标准化随机变量列\[Y_n^*=\frac{\sum_{k=1}^{n}X_k-n}{\sqrt{n}}\]随后由第8次作业最后一题的结论可知，若令$X_n'=\sum_{k=1}^{n}X_k$，则有\[p(X_n')=\frac{1}{(n-1)!}y^{n-1}\cdot e^{-y}\quad y>0\]所以\[p(Y_n^*)=\frac{y^{n-1}\cdot e^{-y}-n!}{(n-1)!\sqrt{n}}\quad y>0\]故\[F(Y_n^*)=\int_{-\infty}^{x}\frac{y^{n-1}\cdot e^{-y}-n!}{(n-1)!\sqrt{n}}dy\]然后不知道怎么算下去……
+				\end{proof}
+				
+	\end{CJK}
+\end{document}
